@@ -1,0 +1,1 @@
+<a href="{{ route('aset.edit', $model->id) }}" class="btn btn-xs btn-warning"><i class="fas fa-search"></i></a>
