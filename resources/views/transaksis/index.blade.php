@@ -1,11 +1,11 @@
 @extends('templates.main')
 
 @section('title_page')
-    Maintenance (transaksi)
+    Transaksi
 @endsection
 
 @section('breadcrumb_title')
-    maintenance
+    transaksi
 @endsection
 
 @section('content')

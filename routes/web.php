@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
+
+// Kategori route
 Route::middleware('auth')->prefix('kategori')->name('kategori.')->group(function () {
     Route::get('/data', [KategoriController::class, 'index_data'])->name('index.data');
 
@@ -35,6 +37,8 @@ Route::middleware('auth')->prefix('kategori')->name('kategori.')->group(function
     Route::delete('/{id}', [KategoriController::class, 'destroy'])->name('destroy');
 });
 
+
+// aset route
 Route::middleware('auth')->prefix('asets')->name('aset.')->group(function () {
     Route::get('/data', [AsetController::class, 'index_data'])->name('index.data');
     Route::get('/rekap/data', [AsetController::class, 'index_rekap_data'])->name('index_rekap.data');
@@ -48,19 +52,23 @@ Route::middleware('auth')->prefix('asets')->name('aset.')->group(function () {
     Route::delete('/{id}', [AsetController::class, 'destroy'])->name('destroy');
 });
 
+// transaksi route
 Route::middleware('auth')->prefix('transaksis')->name('transaksi.')->group(function () {
     Route::get('/data', [TransaksiController::class, 'transaksi_index_data'])->name('index.data');
-    Route::get('/{transaksi_id}/transaksi_detail/data', [TransaksiController::class, 'transaksi_detail_index_data'])->name('transaksi_detail_index_data');
+    Route::get('/{transaksi_id}/transaksi_detail/data', [TransaksiController::class, 'transaksi_detail_create_data'])->name('transaksi_detail_create_data');
+    Route::get('/{transaksi_id}/show/data', [TransaksiController::class, 'transaksi_detail_show_data'])->name('transaksi_detail_show_data');
 
     Route::get('/', [TransaksiController::class, 'index'])->name('index');
     Route::get('/create', [TransaksiController::class, 'create'])->name('create');
     Route::post('/', [TransaksiController::class, 'store'])->name('store');
     Route::get('/{id}', [TransaksiController::class, 'edit'])->name('edit');
+    Route::get('/{id}/show', [TransaksiController::class, 'show'])->name('show');
     Route::put('/{id}', [TransaksiController::class, 'update'])->name('update');
     Route::delete('/{id}', [TransaksiController::class, 'destroy'])->name('destroy');
 
     Route::get('/{transaksi_id}/create_detail', [TransaksiController::class, 'create_detail'])->name('create_detail');
     Route::post('/{transaksi_id}/store_detail', [TransaksiController::class, 'store_detail'])->name('store_detail');
+    Route::delete('/{transaksi_id}/destroy_detail', [TransaksiController::class, 'destroy_detail'])->name('destroy_detail');
 });
 
 

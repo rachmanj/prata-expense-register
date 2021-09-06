@@ -56,8 +56,6 @@
         </div>
         <hr>
         <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-success"><i class="fas fa-undo"></i> Kembali ke Daftar Transaksi</a>
-        <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-new_transaksi_detail"><i class="fas fa-plus"></i> Tambah Material
-        </button>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -68,8 +66,7 @@
             <th>Material</th>
             <th>Satuan</th>
             <th>Quantity</th>
-            <th>Total(Rp)</th>
-            <th></th>
+            <th>Total (Rp)</th>
           </tr>
           </thead>
         </table>
@@ -146,14 +143,13 @@
     $("#example1").DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ route('transaksi.transaksi_detail_create_data', $transaksi->id) }}',
+      ajax: '{{ route('transaksi.transaksi_detail_show_data', $transaksi->id) }}',
       columns: [
         {data: 'DT_RowIndex', orderable: false, searchable: false},
         {data: 'nama_material'},
         {data: 'uom'},
         {data: 'qty'},
         {data: 'total'},
-        {data: 'action', orderable: false, searchable: false},
       ],
       fixedHeader: true,
       columnDefs: [
