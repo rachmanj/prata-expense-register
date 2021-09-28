@@ -1,11 +1,11 @@
 @extends('templates.main')
 
 @section('title_page')
-    Aset
+    Asset
 @endsection
 
 @section('breadcrumb_title')
-    aset
+    asset
 @endsection
 
 @section('content')
@@ -13,6 +13,7 @@
   <div class="col-12">
 
     <div class="card">
+      
       <div class="card-header">
 
         @if (session()->has('success'))
@@ -22,8 +23,9 @@
         </div>
         @endif
 
-        <a href="{{ route('aset.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Aset</a>
-        <a href="{{ route('aset.index') }}" class="btn btn-sm btn-success"><i class="fas fa-search"></i> Daftar Aset</a>
+        <a href="{{ route('aset.index') }}" class="btn btn-sm btn-success"><i class="fas fa-undo"></i> Kembali ke Daftar Asset</a>
+        <hr>
+        <h3 class="card-title">Daftar Transaksi : {{ $aset->nama_aset }}</h3>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -31,8 +33,10 @@
           <thead>
           <tr>
             <th>No</th>
-            <th>Nama Aset</th>
-            <th>Total Biaya</th>
+            <th>Tanggal</th>
+            <th>Jenis Perbaikan</th>
+            <th>Tindakan Perbaikan</th>
+            <th>Biaya (Rp)</th>
             <th></th>
           </tr>
           </thead>
@@ -45,6 +49,7 @@
   <!-- /.col -->
 </div>
 <!-- /.row -->
+
 @endsection
 
 @section('styles')
@@ -68,17 +73,19 @@
     $("#example1").DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ route('aset.index_rekap.data') }}',
+      ajax: '{{ route('aset.transaksi.data', $aset->id) }}',
       columns: [
         {data: 'DT_RowIndex', orderable: false, searchable: false},
-        {data: 'nama_aset'},
-        {data: 'expense'},
+        {data: 'tanggal'},
+        {data: 'jenis_perbaikan'},
+        {data: 'tindakan_perbaikan'},
+        {data: 'amount'},
         {data: 'action', orderable: false, searchable: false},
       ],
       fixedHeader: true,
       columnDefs: [
         {
-          "targets": 2,
+          "targets": [4],
           "className": "text-right"
         }
       ],

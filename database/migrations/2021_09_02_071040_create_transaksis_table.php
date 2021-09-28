@@ -17,7 +17,7 @@ class CreateTransaksisTable extends Migration
             $table->id();
             $table->date('tanggal');
             $table->string('nomor');
-            $table->unsignedBigInteger('asets_id');
+            $table->unsignedBigInteger('aset_id');
             $table->string('jenis_perbaikan')->nullable();
             $table->string('tindakan_perbaikan')->nullable();
             $table->string('worker')->default('INTERNAL');
@@ -26,7 +26,7 @@ class CreateTransaksisTable extends Migration
             $table->string('followup_by')->nullable();
             $table->string('giver')->nullable();
             $table->string('receiver')->nullable();
-            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }

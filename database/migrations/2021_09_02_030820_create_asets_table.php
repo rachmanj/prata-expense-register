@@ -17,7 +17,7 @@ class CreateAsetsTable extends Migration
             $table->id();
             $table->string('nama_aset');
             $table->text('keterangan')->nullable();
-            $table->unsignedBigInteger('kategoris_id');
+            $table->unsignedBigInteger('kategori_id');
             $table->string('created_by');
             $table->timestamps();
         });

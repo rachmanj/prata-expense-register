@@ -5,7 +5,7 @@
 @endsection
 
 @section('breadcrumb_title')
-    aset
+    transaksi
 @endsection
 
 @section('content')
@@ -13,6 +13,7 @@
   <div class="col-12">
 
     <div class="card">
+      
       <div class="card-header">
 
         @if (session()->has('success'))
@@ -22,7 +23,39 @@
         </div>
         @endif
 
-        <a href="{{ route('aset.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Aset</a>
+        <a href="{{ route('aset.show', $transaksi->aset_id) }}" class="btn btn-sm btn-success"><i class="fas fa-undo"></i> Kembali ke Daftar Transaksi</a>
+        <hr>
+        <div class="row">
+          {{-- <h3 class="card-title">Invoice No. <b>{{ $invoice->inv_no }}</b> | PO No. <b>{{ $invoice->po_no ? $invoice->po_no : '' }}</b></h3> --}}
+          <div class="col-6">
+            <dl class="row">
+              <dt class="col-sm-4">Transaksi No.</dt>
+              <dd class="col-sm-8">: {{ $transaksi->nomor }}</dd>
+              <dt class="col-sm-4">Tanggal</dt>
+              <dd class="col-sm-8">: {{ date('d-M-Y', strtotime($transaksi->tanggal)) }}</dd>
+              <dt class="col-sm-4">Object</dt>
+              <dd class="col-sm-8">: {{ $transaksi->aset->nama_aset }}</dd>
+              <dt class="col-sm-4">Jenis Perbaikan</dt>
+              <dd class="col-sm-8">: {{ $transaksi->jenis_perbaikan }}</dd>
+              <dt class="col-sm-4">Tindakan Perbaikan</dt>
+              <dd class="col-sm-8">: {{ $transaksi->tindakan_perbaikan }}</dd>
+            </dl>
+          </div>
+          <div class="col-6">
+            <dl class="row">
+              <dt class="col-sm-4">Pelaksana</dt>
+              <dd class="col-sm-8">: {{ $transaksi->worker }}</dd>
+              <dt class="col-sm-4">Diminta oleh</dt>
+              <dd class="col-sm-8">: {{ $transaksi->requestor }}</dd>
+              <dt class="col-sm-4">Disetujui oleh</dt>
+              <dd class="col-sm-8">: {{ $transaksi->approver }}</dd>
+              <dt class="col-sm-4">Dibuat oleh</dt>
+              <dd class="col-sm-8">: {{ $transaksi->user->name }}</dd>
+              <dt class="col-sm-4">Diinput tgl</dt>
+              <dd class="col-sm-8">: {{ date('d-M-Y', strtotime($transaksi->created_at)) }}</dd>
+            </dl>
+          </div>
+        </div>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -30,10 +63,10 @@
           <thead>
           <tr>
             <th>No</th>
-            <th>Nama Aset</th>
-            <th>Ketegori</th>
-            <th>Total Biaya (Rp.)</th>
-            <th></th>
+            <th>Material</th>
+            <th>Satuan</th>
+            <th>Quantity</th>
+            <th>Total (Rp)</th>
           </tr>
           </thead>
         </table>
@@ -68,18 +101,18 @@
     $("#example1").DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ route('aset.index.data') }}',
+      ajax: '{{ route('aset.show_detail.data', $transaksi->id) }}',
       columns: [
         {data: 'DT_RowIndex', orderable: false, searchable: false},
-        {data: 'nama_aset'},
-        {data: 'kategori'},
-        {data: 'expense'},
-        {data: 'action', orderable: false, searchable: false},
+        {data: 'nama_material'},
+        {data: 'uom'},
+        {data: 'qty'},
+        {data: 'total'},
       ],
       fixedHeader: true,
       columnDefs: [
         {
-          "targets": 3,
+          "targets": [3, 4],
           "className": "text-right"
         }
       ],

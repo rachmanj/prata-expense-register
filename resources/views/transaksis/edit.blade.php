@@ -25,12 +25,12 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Object Maintenance</label>
-                    <select name="asets_id" class="form-control select2bs4 @error('asets_id') is-invalid @enderror">
+                    <select name="aset_id" class="form-control select2bs4 @error('aset_id') is-invalid @enderror">
                       @foreach ($asets as $aset)
                           <option value="{{ $aset->id }}" {{ $aset->id === $transaksi->asets_id ? 'selected' : '' }}>{{ $aset->nama_aset }}</option>
                       @endforeach
                     </select>
-                    @error('asets_id')
+                    @error('aset_id')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>

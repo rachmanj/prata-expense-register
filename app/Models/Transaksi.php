@@ -13,16 +13,16 @@ class Transaksi extends Model
 
     public function aset()
     {
-        return $this->belongsTo(Aset::class, 'asets_id', 'id');
+        return $this->belongsTo(Aset::class);
     }
 
     public function transaksi_details()
     {
-        return $this->hasMany(TransaksiDetail::class, 'transaksis_id', 'id');
+        return $this->hasMany(TransaksiDetail::class);
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->belongsTo(User::class);
     }
 }

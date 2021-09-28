@@ -33,7 +33,7 @@
 
               <div class="form-group">
                 <label>Kategori</label>
-                <select name="kategoris_id" class="form-control select2bs4">
+                <select name="kategori_id" class="form-control select2bs4">
                   <option value="">-- pilih lah --</option>
                   @foreach ($kategoris as $kategori)
                       <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}</option>

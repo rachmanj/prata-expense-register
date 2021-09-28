@@ -15,7 +15,7 @@ class CreateTransaksiDetailsTable extends Migration
     {
         Schema::create('transaksi_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('transaksis_id');
+            $table->unsignedBigInteger('transaksi_id');
             $table->string('nama_material');
             $table->string('uom')->nullable();
             $table->integer('qty');

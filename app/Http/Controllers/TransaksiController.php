@@ -46,13 +46,13 @@ class TransaksiController extends Controller
         $data_tosave = $this->validate($request, [
             'nomor'                     => ['required', 'unique:transaksis'],
             'tanggal'                   => ['required'],
-            'asets_id'                  => ['required'],
+            'aset_id'                   => ['required'],
             'jenis_perbaikan'           => ['required'],
             'tindakan_perbaikan'        => ['required'],
         ]);
 
         $transaksi = Transaksi::create(array_merge($data_tosave, [
-            'users_id'  => Auth()->user()->id
+            'user_id'  => Auth()->user()->id
         ]));
 
         $transaksi_id = $transaksi->id;
@@ -73,7 +73,7 @@ class TransaksiController extends Controller
         $data_tosave = $this->validate($request, [
             'nomor'                     => ['required', 'unique:transaksis,nomor,'. $id],
             'tanggal'                   => ['required'],
-            'asets_id'                  => ['required'],
+            'aset_id'                  => ['required'],
             'jenis_perbaikan'           => ['required'],
             'tindakan_perbaikan'        => ['required'],
         ]);
@@ -97,7 +97,7 @@ class TransaksiController extends Controller
     {
         $transaksi_detail = new TransaksiDetail();
 
-        $transaksi_detail->transaksis_id = $transaksi_id;
+        $transaksi_detail->transaksi_id = $transaksi_id;
         $transaksi_detail->nama_material = $request->nama_material;
         $transaksi_detail->uom = $request->uom;
         $transaksi_detail->qty = $request->qty;
@@ -110,11 +110,11 @@ class TransaksiController extends Controller
     public function destroy_detail($id)
     {
         $transaksi_detail = TransaksiDetail::find($id);
-        $transaksis_id = $transaksi_detail->transaksis_id;
+        $transaksi_id = $transaksi_detail->transaksi_id;
 
         $transaksi_detail->delete();
 
-        return redirect()->route('transaksi.create_detail', $transaksis_id);
+        return redirect()->route('transaksi.create_detail', $transaksi_id);
     }
 
     public function show($id)
@@ -139,7 +139,7 @@ class TransaksiController extends Controller
 
     public function transaksi_detail_create_data($transaksi_id)
     {
-        $transaksi_details = TransaksiDetail::where('transaksis_id', $transaksi_id)->get();
+        $transaksi_details = TransaksiDetail::where('transaksi_id', $transaksi_id)->get();
 
         return datatables()->of($transaksi_details)
             ->editColumn('total', function ($transaksi_details) {

@@ -25,13 +25,13 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label>Object Maintenance</label>
-                    <select name="asets_id" class="form-control select2bs4 @error('asets_id') is-invalid @enderror">
+                    <select name="aset_id" class="form-control select2bs4 @error('aset_id') is-invalid @enderror">
                       <option value="">-- pilih lah --</option>
                       @foreach ($asets as $aset)
                           <option value="{{ $aset->id }}">{{ $aset->nama_aset }}</option>
                       @endforeach
                     </select>
-                    @error('asets_id')
+                    @error('aset_id')
                       <div class="invalid-feedback">
                         {{ $message }}
                       </div>

@@ -41,13 +41,17 @@ Route::middleware('auth')->prefix('kategori')->name('kategori.')->group(function
 // aset route
 Route::middleware('auth')->prefix('asets')->name('aset.')->group(function () {
     Route::get('/data', [AsetController::class, 'index_data'])->name('index.data');
-    Route::get('/rekap/data', [AsetController::class, 'index_rekap_data'])->name('index_rekap.data');
-
+    Route::get('/{id}/data', [AsetController::class, 'transaksi_data'])->name('transaksi.data');
+    Route::get('/{id}/show/detail_data', [AsetController::class, 'show_detail_data'])->name('show_detail.data');
+    // Route::get('/rekap/data', [AsetController::class, 'index_rekap_data'])->name('index_rekap.data');
+    Route::get('/{id}/trans_detail', [AsetController::class, 'show_trans_detail'])->name('show.trans_detail');
+    
     Route::get('/', [AsetController::class, 'index'])->name('index');
     Route::get('/rekap', [AsetController::class, 'rekap'])->name('rekap');
     Route::get('/create', [AsetController::class, 'create'])->name('create');
     Route::post('/', [AsetController::class, 'store'])->name('store');
     Route::get('/{id}', [AsetController::class, 'edit'])->name('edit');
+    Route::get('/{id}/show', [AsetController::class, 'show'])->name('show');
     Route::put('/{id}', [AsetController::class, 'update'])->name('update');
     Route::delete('/{id}', [AsetController::class, 'destroy'])->name('destroy');
 });
