@@ -64,7 +64,6 @@
                 </div>
               </div>
 
-              
               <div class="form-group">
                 <label>Jenis Perbaikan</label>
                 <input name="jenis_perbaikan"  value="{{ old('jenis_perbaikan') }}" class="form-control @error('jenis_perbaikan') is-invalid @enderror">
@@ -83,6 +82,14 @@
                     {{ $message }}
                   </div>
                 @enderror
+              </div>
+
+              <div class="form-group">
+                <label>Worker</label>
+                <select name="worker" id="worker" class="form-control">
+                  <option value="INTERNAL">INTERNAL</option>
+                  <option value="EKSTERNAL">EKSTERNAL</option>
+                </select>
               </div>
 
               <div class="form-group">

@@ -27,7 +27,7 @@
                     <label>Object Maintenance</label>
                     <select name="aset_id" class="form-control select2bs4 @error('aset_id') is-invalid @enderror">
                       @foreach ($asets as $aset)
-                          <option value="{{ $aset->id }}" {{ $aset->id === $transaksi->asets_id ? 'selected' : '' }}>{{ $aset->nama_aset }}</option>
+                          <option value="{{ $aset->id }}" {{ $aset->id == $transaksi->asets_id ? 'selected' : '' }}>{{ $aset->nama_aset }}</option>
                       @endforeach
                     </select>
                     @error('aset_id')
@@ -82,6 +82,14 @@
                     {{ $message }}
                   </div>
                 @enderror
+              </div>
+
+              <div class="form-group">
+                <label>Worker</label>
+                <select name="worker" id="worker" class="form-control">
+                  <option value="INTERNAL" {{ $transaksi->worker == 'INTERNAL' ? 'selected' : '' }}>INTERNAL</option>
+                  <option value="EKSTERNAL" {{ $transaksi->worker == 'EKSTERNAL' ? 'selected' : '' }}>EKSTERNAL</option>
+                </select>
               </div>
 
               <div class="form-group">

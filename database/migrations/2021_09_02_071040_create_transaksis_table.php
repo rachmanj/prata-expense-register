@@ -26,7 +26,7 @@ class CreateTransaksisTable extends Migration
             $table->string('followup_by')->nullable();
             $table->string('giver')->nullable();
             $table->string('receiver')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
         });
     }

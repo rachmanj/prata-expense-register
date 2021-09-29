@@ -49,10 +49,11 @@ class TransaksiController extends Controller
             'aset_id'                   => ['required'],
             'jenis_perbaikan'           => ['required'],
             'tindakan_perbaikan'        => ['required'],
+            'worker'                    => ['required'],
         ]);
 
         $transaksi = Transaksi::create(array_merge($data_tosave, [
-            'user_id'  => Auth()->user()->id
+            'created_by'  => Auth()->user()->id
         ]));
 
         $transaksi_id = $transaksi->id;
@@ -73,16 +74,18 @@ class TransaksiController extends Controller
         $data_tosave = $this->validate($request, [
             'nomor'                     => ['required', 'unique:transaksis,nomor,'. $id],
             'tanggal'                   => ['required'],
-            'aset_id'                  => ['required'],
+            'aset_id'                   => ['required'],
             'jenis_perbaikan'           => ['required'],
             'tindakan_perbaikan'        => ['required'],
+            'worker'                    => ['required'],
         ]);
 
         $transaksi = Transaksi::find($id);
+        $transaksi_id = $transaksi->id;
 
         $transaksi->update($data_tosave);
 
-        return redirect()->route('transaksi.create_detail', $id);
+        return redirect()->route('transaksi.create_detail', $transaksi_id);
 
     }
 
