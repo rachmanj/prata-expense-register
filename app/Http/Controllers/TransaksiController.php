@@ -130,7 +130,7 @@ class TransaksiController extends Controller
 
     public function transaksi_detail_show_data($transaksi_id)
     {
-        $transaksi_details = TransaksiDetail::where('transaksis_id', $transaksi_id)->get();
+        $transaksi_details = TransaksiDetail::where('transaksi_id', $transaksi_id)->get();
 
         return datatables()->of($transaksi_details)
             ->editColumn('total', function ($transaksi_details) {
