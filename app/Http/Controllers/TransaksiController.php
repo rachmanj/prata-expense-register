@@ -14,26 +14,6 @@ class TransaksiController extends Controller
         return view('transaksis.index');
     }
 
-    public function transaksi_index_data()
-    {
-        $transaksis = Transaksi::with('transaksi_details')->orderBy('tanggal', 'desc')->get();
-
-        return datatables()->of($transaksis)
-            ->addColumn('aset', function ($transaksis) {
-                return $transaksis->aset->nama_aset;
-            })
-            ->addColumn('total', function ($transaksis) {
-                return number_format($transaksis->transaksi_details->sum('total'), 0);
-            })
-            ->editColumn('tanggal', function($transaksis) {
-                return date('d-M-Y', strtotime($transaksis->tanggal));
-            })
-            ->addIndexColumn()
-            ->addColumn('action', 'transaksis.action')
-            ->rawColumns(['action'])
-            ->toJson();
-    }
-
     public function create()
     {
         $asets = Aset::orderBy('nama_aset', 'asc')->get();
@@ -85,7 +65,7 @@ class TransaksiController extends Controller
 
         $transaksi->update($data_tosave);
 
-        return redirect()->route('transaksi.create_detail', $transaksi_id);
+        return redirect()->route('transaksi.index');
 
     }
 
@@ -126,6 +106,28 @@ class TransaksiController extends Controller
 
         // return $transaksi;
         return view('transaksis.show', compact('transaksi'));
+    }
+
+    //// data of Datatables
+
+    public function transaksi_index_data()
+    {
+        $transaksis = Transaksi::with('transaksi_details')->orderBy('tanggal', 'desc')->get();
+
+        return datatables()->of($transaksis)
+            ->addColumn('aset', function ($transaksis) {
+                return $transaksis->aset->nama_aset;
+            })
+            ->addColumn('total', function ($transaksis) {
+                return number_format($transaksis->transaksi_details->sum('total'), 0);
+            })
+            ->editColumn('tanggal', function($transaksis) {
+                return date('d-M-Y', strtotime($transaksis->tanggal));
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'transaksis.action')
+            ->rawColumns(['action'])
+            ->toJson();
     }
 
     public function transaksi_detail_show_data($transaksi_id)

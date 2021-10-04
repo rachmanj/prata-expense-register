@@ -15,6 +15,7 @@
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Edit Transaksi</h3>
+            <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-primary float-right"><i class="fas fa-undo"></i> Back</a>
           </div>
 
           <div class="card-body">
@@ -93,7 +94,8 @@
               </div>
 
               <div class="form-group">
-                <button type="submit" class="btn btn-md btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                <a href="{{ route('transaksi.create_detail', $transaksi->id) }}" class="btn btn-sm btn-success"> Edit Detail Transaksi</a>
               </div>
 
             </form>
