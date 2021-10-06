@@ -20,6 +20,9 @@
           <a href="{{ route('transaksi.index') }}" class="nav-link">Transaksi</a>
         </li>
         <li class="nav-item">
+          <a href="{{ route('fuels.index') }}" class="nav-link">Fuel</a>
+        </li>
+        <li class="nav-item">
           <a href="{{ route('kategori.index') }}" class="nav-link">Kategori</a>
         </li>
       </ul>

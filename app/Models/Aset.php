@@ -32,4 +32,9 @@ class Aset extends Model
     {
         return $this->hasManyThrough(TransaksiDetail::class, Transaksi::class);
     }
+
+    public function fuels()
+    {
+        return $this->hasMany(Fuel::class);
+    }
 }

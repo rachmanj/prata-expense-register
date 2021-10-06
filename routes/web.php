@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AsetController;
+use App\Http\Controllers\FuelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LoginController;
@@ -75,6 +76,11 @@ Route::middleware('auth')->prefix('transaksis')->name('transaksi.')->group(funct
     Route::delete('/{transaksi_id}/destroy_detail', [TransaksiController::class, 'destroy_detail'])->name('destroy_detail');
 });
 
+//Fuel
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('fuels/data', [FuelController::class, 'fuels_index_data'])->name('fuels.index.data');
+    Route::resource('fuels', FuelController::class);
+});
 
 
 
