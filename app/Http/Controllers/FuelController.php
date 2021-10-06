@@ -70,7 +70,9 @@ class FuelController extends Controller
      */
     public function edit(Fuel $fuel)
     {
-        //
+        $asets = Aset::orderBy('nama_aset', 'asc')->get();
+
+        return view('fuels.edit', compact('fuel', 'asets'));
     }
 
     /**
@@ -80,9 +82,18 @@ class FuelController extends Controller
      * @param  \App\Models\Fuel  $fuel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fuel $fuel)
+    public function update(StoreFuelRequest $request, Fuel $fuel)
     {
-        //
+        $fuel->update(array_merge($request->validated(), [
+            'hm' => $request->hm,
+            'remarks' => $request->remarks,
+            'operator' => $request->operator,
+            'security' => $request->security,
+            'fuelman' => $request->fuelman,
+            'created_by' => auth()->id(),
+        ]));
+
+        return redirect()->route('fuels.index')->with('success', 'Data berhasil diubah');
     }
 
     /**
@@ -93,7 +104,8 @@ class FuelController extends Controller
      */
     public function destroy(Fuel $fuel)
     {
-        //
+        $fuel->delete();
+        return redirect()->route('fuels.index')->with('success', 'Data berhasil dihapus');
     }
 
     public function fuels_index_data()
