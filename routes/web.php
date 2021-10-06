@@ -79,6 +79,8 @@ Route::middleware('auth')->prefix('transaksis')->name('transaksi.')->group(funct
 //Fuel
 Route::group(['middleware' => 'auth'], function () {
     Route::get('fuels/data', [FuelController::class, 'fuels_index_data'])->name('fuels.index.data');
+    Route::get('fuels/rekap_data', [FuelController::class, 'fuels_rekap_data'])->name('fuels.rekap.data');
+    Route::get('fuels/show_rekap', [FuelController::class, 'fuels_show_rekap'])->name('fuels.show_rekap');
     Route::resource('fuels', FuelController::class);
 });
 

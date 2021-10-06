@@ -21,26 +21,23 @@
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         </div>
         @endif
-
-        <a href="{{ route('fuels.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Transaksi</a>
-        <a href="{{ route('fuels.show_rekap') }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> Lihat Rekapitulasi</a>
+        <h3 class="card-title">Rekapitulasi Pemakaian Fuel Per Aset</h3>
+        <a href="{{ route('fuels.index') }}" class="btn btn-sm btn-primary float-right"><i class="fas fa-undo"></i> Kembali</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <th>No</th>
-            <th>Tanggal</th>
-            <th>Aset</th>
-            <th>HM</th>
-            <th>KM</th>
-            <th>Qty (L)</th>
-            <th>Fuelman</th>
-            <th></th>
-          </tr>
-          </thead>
-        </table>
+        <div class="col-10">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Aset</th>
+              <th>Total Pemakaian (L)</th>
+              {{-- <th></th> --}}
+            </tr>
+            </thead>
+          </table>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>
@@ -72,21 +69,16 @@
     $("#example1").DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ route('fuels.index.data') }}',
+      ajax: '{{ route('fuels.rekap.data') }}',
       columns: [
         {data: 'DT_RowIndex', orderable: false, searchable: false},
-        {data: 'tanggal'},
-        {data: 'aset'},
-        {data: 'hm'},
-        {data: 'km'},
-        {data: 'qty'},
-        {data: 'fuelman'},
-        {data: 'action', orderable: false, searchable: false},
+        {data: 'nama_aset'},
+        {data: 'total'},
       ],
       fixedHeader: true,
       columnDefs: [
         {
-          "targets": [3, 4, 5],
+          "targets": 2,
           "className": "text-right"
         }
       ],

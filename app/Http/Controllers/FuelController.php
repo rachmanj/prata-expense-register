@@ -108,6 +108,11 @@ class FuelController extends Controller
         return redirect()->route('fuels.index')->with('success', 'Data berhasil dihapus');
     }
 
+    public function fuels_show_rekap()
+    {
+        return view('fuels.rekap');
+    }
+
     public function fuels_index_data()
     {
         $fuels = Fuel::with('aset')->orderBy('tanggal', 'desc')->get();
@@ -122,6 +127,21 @@ class FuelController extends Controller
             ->addIndexColumn()
             ->addColumn('action', 'fuels.action')
             ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function fuels_rekap_data()
+    {
+        $asets = Aset::without('kategori')->whereHas('fuels')
+                ->with('fuels')
+                ->orderBy('nama_aset', 'asc')
+                ->get();
+
+        return datatables()->of($asets)
+            ->addColumn('total', function ($asets) {
+                return number_format($asets->fuels->sum('qty'), 0);
+            })
+            ->addIndexColumn()
             ->toJson();
     }
 }
