@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksiDetailController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -84,6 +85,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('fuels/show_rekap', [FuelController::class, 'fuels_show_rekap'])->name('fuels.show_rekap');
     Route::get('fuels/export_excel', [FuelController::class, 'fuels_export_excel'])->name('fuels.export_excel');
     Route::resource('fuels', FuelController::class);
+
+    //Users
+    Route::get('/admin/activate', [UserController::class, 'activate_index'])->name('user.activate_index');
+    Route::put('/admin/activate/{id}', [UserController::class, 'activate_update'])->name('user.activate_update');
+    Route::get('/admin/deactivate', [UserController::class, 'deactivate_index'])->name('user.deactivate_index');
+    Route::put('/admin/deactivate/{id}', [UserController::class, 'deactivate_update'])->name('user.deactivate_update');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/admin/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
+    
+    Route::get('/admin/users/index/data', [UserController::class, 'index_data'])->name('users.index.data');
+    Route::get('/admin/users/activate/data', [UserController::class, 'user_activate_data'])->name('user_activate.data');
+    Route::get('/admin/users/deactivate/data', [UserController::class, 'user_deactivate_data'])->name('user_deactivate.data');
 });
 
 
