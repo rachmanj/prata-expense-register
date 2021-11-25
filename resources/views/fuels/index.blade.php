@@ -35,6 +35,7 @@
             <th>Aset</th>
             <th>HM</th>
             <th>KM</th>
+            <th>Jenis</th>
             <th>Qty (L)</th>
             <th>Fuelman</th>
             <th></th>
@@ -79,6 +80,7 @@
         {data: 'aset'},
         {data: 'hm'},
         {data: 'km'},
+        {data: 'fuel_type'},
         {data: 'qty'},
         {data: 'fuelman'},
         {data: 'action', orderable: false, searchable: false},
@@ -86,7 +88,7 @@
       fixedHeader: true,
       columnDefs: [
         {
-          "targets": [3, 4, 5],
+          "targets": [3, 4, 6],
           "className": "text-right"
         }
       ],

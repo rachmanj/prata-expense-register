@@ -13,6 +13,7 @@
     <div class="collapse navbar-collapse order-3" id="navbarCollapse">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
+        @if (auth()->user()->role === 'ADMIN')
         <li class="nav-item">
           <a href="{{ route('aset.index') }}" class="nav-link">Asset</a>
         </li>
@@ -20,11 +21,14 @@
           <a href="{{ route('transaksi.index') }}" class="nav-link">Transaksi</a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('fuels.index') }}" class="nav-link">Fuel</a>
-        </li>
-        <li class="nav-item">
           <a href="{{ route('kategori.index') }}" class="nav-link">Kategori</a>
         </li>
+        @endif
+        @if (auth()->user()->role === 'FUELMAN' || auth()->user()->role === 'ADMIN')
+        <li class="nav-item">
+          <a href="{{ route('fuels.index') }}" class="nav-link">Fuel</a>
+        </li>
+        @endif
       </ul>
     </div>
 
