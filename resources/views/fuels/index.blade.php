@@ -24,6 +24,7 @@
 
         <a href="{{ route('fuels.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Transaksi</a>
         <a href="{{ route('fuels.show_rekap') }}" class="btn btn-sm btn-success"><i class="fas fa-eye"></i> Lihat Rekapitulasi</a>
+        <a href="{{ route('fuels.export_excel') }}" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Export Excel</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">

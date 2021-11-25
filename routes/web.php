@@ -59,6 +59,7 @@ Route::middleware('auth')->prefix('asets')->name('aset.')->group(function () {
 
 // transaksi route
 Route::middleware('auth')->prefix('transaksis')->name('transaksi.')->group(function () {
+    Route::get('/export_excel', [TransaksiController::class, 'transaksi_export_excel'])->name('export_excel');
     Route::get('/data', [TransaksiController::class, 'transaksi_index_data'])->name('index.data');
     Route::get('/{transaksi_id}/transaksi_detail/data', [TransaksiController::class, 'transaksi_detail_create_data'])->name('transaksi_detail_create_data');
     Route::get('/{transaksi_id}/show/data', [TransaksiController::class, 'transaksi_detail_show_data'])->name('transaksi_detail_show_data');
@@ -81,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('fuels/data', [FuelController::class, 'fuels_index_data'])->name('fuels.index.data');
     Route::get('fuels/rekap_data', [FuelController::class, 'fuels_rekap_data'])->name('fuels.rekap.data');
     Route::get('fuels/show_rekap', [FuelController::class, 'fuels_show_rekap'])->name('fuels.show_rekap');
+    Route::get('fuels/export_excel', [FuelController::class, 'fuels_export_excel'])->name('fuels.export_excel');
     Route::resource('fuels', FuelController::class);
 });
 

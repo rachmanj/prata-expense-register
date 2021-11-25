@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TransaksiExport;
 use App\Models\Aset;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransaksiController extends Controller
 {
@@ -154,5 +156,10 @@ class TransaksiController extends Controller
             ->addColumn('action', 'transaksis.transaksi_details.create_action')
             ->rawColumns(['action'])
             ->toJson();
+    }
+
+    public function transaksi_export_excel()
+    {
+        return Excel::download(new TransaksiExport(), 'transaksi_export.xlsx');
     }
 }
