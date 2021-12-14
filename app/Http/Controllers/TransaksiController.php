@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\TransaksiExport;
+use App\Exports\TransaksiViewExport;
 use App\Models\Aset;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
@@ -114,7 +115,7 @@ class TransaksiController extends Controller
 
     public function transaksi_index_data()
     {
-        $transaksis = Transaksi::with('transaksi_details')->orderBy('tanggal', 'desc')->get();
+        $transaksis = Transaksi::with(['aset', 'transaksi_details'])->orderBy('tanggal', 'desc')->get();
 
         return datatables()->of($transaksis)
             ->addColumn('aset', function ($transaksis) {
@@ -160,6 +161,7 @@ class TransaksiController extends Controller
 
     public function transaksi_export_excel()
     {
-        return Excel::download(new TransaksiExport(), 'transaksi_export.xlsx');
+        // return Excel::download(new TransaksiExport(), 'transaksi_export.xlsx');
+        return Excel::download(new TransaksiViewExport(), 'transaksi_export.xlsx');
     }
 }
