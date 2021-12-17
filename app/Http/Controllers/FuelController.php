@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\FuelExport;
+use App\Exports\FuelViewExport;
 use App\Http\Requests\StoreFuelRequest;
 use App\Models\Aset;
 use App\Models\Fuel;
@@ -108,6 +108,7 @@ class FuelController extends Controller
 
     public function fuels_export_excel()
     {
-        return Excel::download(new FuelExport(), 'fuels_export.xlsx');
+        // return Excel::download(new FuelExport(), 'fuels_export.xlsx');
+        return Excel::download(new FuelViewExport(), 'fuels_export.xlsx');
     }
 }
