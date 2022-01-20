@@ -22,6 +22,13 @@
         </div>
         @endif
 
+        @if (session()->has('danger'))
+        <div class="alert alert-danger alert-dismissible">
+          {{ session('danger') }}
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        </div>
+        @endif
+
         <a href="{{ route('transaksi.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Transaksi</a>
         <a href="{{ route('transaksi.export_excel') }}" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Export Excel</a>
       </div>

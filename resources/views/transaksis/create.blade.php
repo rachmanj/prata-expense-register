@@ -65,6 +65,16 @@
               </div>
 
               <div class="form-group">
+                <label>Alasan Perbaikan</label>
+                <input name="alasan_perbaikan"  value="{{ old('alasan_perbaikan') }}" class="form-control @error('alasan_perbaikan') is-invalid @enderror">
+                @error('alasan_perbaikan')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+
+              <div class="form-group">
                 <label>Jenis Perbaikan</label>
                 <input name="jenis_perbaikan"  value="{{ old('jenis_perbaikan') }}" class="form-control @error('jenis_perbaikan') is-invalid @enderror">
                 @error('jenis_perbaikan')

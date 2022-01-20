@@ -33,6 +33,8 @@
               <dd class="col-sm-8">: {{ date('d-M-Y', strtotime($transaksi->tanggal)) }}</dd>
               <dt class="col-sm-4">Object</dt>
               <dd class="col-sm-8">: {{ $transaksi->aset->nama_aset }}</dd>
+              <dt class="col-sm-4">Alasan Perbaikan</dt>
+              <dd class="col-sm-8">: {{ $transaksi->alasan_perbaikan }}</dd>
               <dt class="col-sm-4">Jenis Perbaikan</dt>
               <dd class="col-sm-8">: {{ $transaksi->jenis_perbaikan }}</dd>
               <dt class="col-sm-4">Tindakan Perbaikan</dt>

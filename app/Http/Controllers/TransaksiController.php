@@ -30,6 +30,7 @@ class TransaksiController extends Controller
             'nomor'                     => ['required', 'unique:transaksis'],
             'tanggal'                   => ['required'],
             'aset_id'                   => ['required'],
+            'alasan_perbaikan'          => ['required'],
             'jenis_perbaikan'           => ['required'],
             'tindakan_perbaikan'        => ['required'],
             'worker'                    => ['required'],
@@ -64,12 +65,24 @@ class TransaksiController extends Controller
         ]);
 
         $transaksi = Transaksi::find($id);
-        $transaksi_id = $transaksi->id;
+        // $transaksi_id = $transaksi->id;
 
         $transaksi->update($data_tosave);
 
         return redirect()->route('transaksi.index');
 
+    }
+
+    public function destroy($id)
+    {
+        if(auth()->user()->role === 'ADMIN') {
+            $transaksi = Transaksi::find($id);
+            $transaksi->delete();
+            return redirect()->route('transaksi.index')->with('success', 'Record berhasil dihapus');
+        }
+
+        return redirect()->route('transaksi.index')->with('danger', 'Anda tidak berwenang menghapus record ini');
+        
     }
 
     public function create_detail($transaksi_id)
