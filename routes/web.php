@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\AsetController;
 use App\Http\Controllers\FuelController;
 use App\Http\Controllers\HomeController;
@@ -98,6 +99,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/admin/users/index/data', [UserController::class, 'index_data'])->name('users.index.data');
     Route::get('/admin/users/activate/data', [UserController::class, 'user_activate_data'])->name('user_activate.data');
     Route::get('/admin/users/deactivate/data', [UserController::class, 'user_deactivate_data'])->name('user_deactivate.data');
+});
+
+//approval
+Route::middleware('auth')->prefix('approvals')->name('approvals')->group(function () {
+    Route::get('/', [ApprovalController::class, 'index'])->name('index');
 });
 
 
