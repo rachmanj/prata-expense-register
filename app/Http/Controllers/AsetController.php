@@ -41,30 +41,31 @@ class AsetController extends Controller
         return redirect()->route('aset.index')->with('success', 'Aset baru berhasil ditambahkan');
     }
 
-    public function update(Request $request, $id)
-    {
-        $this->validate($request, [
-            'nama_aset'     => ['required', 'max:30'],
-            'kategori_id'  => ['required'],
-            'keterangan'    => ''
-        ]);
-
-        $aset = Aset::find($id);
-        $aset->nama_aset = $request->nama_aset;
-        $aset->kategori_id = $request->kategori_id;
-        $aset->keterangan = $request->keterangan;
-        $aset->created_by = Auth()->user()->username;
-        $aset->update();
-
-        return redirect()->route('aset.index')->with('success', 'Aset berhasil diedit');
-    }
-
     public function edit($id)
     {
         $aset = Aset::find($id);
         $kategoris = Kategori::orderBy('nama_kategori', 'asc')->get();
 
         return view('asets.edit', compact('aset', 'kategoris'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'nama_aset'     => ['required', 'max:30'],
+            'kategori_id'   => ['required'],
+            'keterangan'    => ''
+        ]);
+
+        $aset = Aset::find($id);
+        $aset->nama_aset        = $request->nama_aset;
+        $aset->kategori_id      = $request->kategori_id;
+        $aset->keterangan       = $request->keterangan;
+        $aset->approval_stage   = $request->approval_stage;
+        $aset->created_by       = Auth()->user()->username;
+        $aset->update();
+
+        return redirect()->route('aset.index')->with('success', 'Aset berhasil diedit');
     }
 
     public function destroy($id)
@@ -96,6 +97,15 @@ class AsetController extends Controller
                         return number_format($asets->transaksiDetails->sum('total'), 0);
                     } else {
                         return '-';
+                    }
+                })
+                ->editColumn('approval_stage', function ($asets) {
+                    if ($asets->approval_stage == 1) {
+                        return '1 level';
+                    } elseif ($asets->approval_stage == 2) {
+                        return '2 level';
+                    } else {
+                        return 'No approval';
                     }
                 })
                 ->addIndexColumn()

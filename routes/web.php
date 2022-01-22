@@ -102,8 +102,10 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 //approval
-Route::middleware('auth')->prefix('approvals')->name('approvals')->group(function () {
+Route::middleware('auth')->prefix('approvals')->name('approvals.')->group(function () {
     Route::get('/', [ApprovalController::class, 'index'])->name('index');
+    Route::put('/{transaksi_id}/approve', [ApprovalController::class, 'approve'])->name('approve');
+    Route::put('/{transaksi_id}/deny', [ApprovalController::class, 'deny'])->name('deny');
 });
 
 

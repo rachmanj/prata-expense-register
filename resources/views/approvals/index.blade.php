@@ -26,80 +26,58 @@
       </div>
     @endif
 
-    <div class="card card-info">
-      <div class="card-header">
-        <div class="card-title">Transaksi No. 123412341 tanggal 01-Jan-2022</div>
-      </div>
-      <div class="card-body">
-        <dl class="row">
-          <dt class="col-sm-4">Description lists</dt>
-          <dd class="col-sm-8">A description list is perfect for defining terms.</dd>
-          <dt class="col-sm-4">Euismod</dt>
-          <dd class="col-sm-8">Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-          <dd class="col-sm-8 offset-sm-4">Donec id elit non mi porta gravida at eget metus.</dd>
-          <dt class="col-sm-4">Malesuada porta</dt>
-          <dd class="col-sm-8">Etiam porta sem malesuada magna mollis euismod.</dd>
-          <dt class="col-sm-4">Felis euismod semper eget lacinia</dt>
-          <dd class="col-sm-8">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
-            sit amet risus.
-          </dd>
-        </dl>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="btn btn-sm btn-success">Approve</a>
-        <a href="#" class="btn btn-sm btn-primary">Deny</a>
-      </div>
-    </div> <!-- card -->
+    @if ($transaksis->count() < 1)
+        <div class="card card-info">
+          <div class="card-header">
+            <div class="card-title">
+              <h3>No Approval Request</h3>
+            </div>
+          </div>
+        </div>
+    @else
 
+    @foreach ($transaksis as $transaksi)
     <div class="card card-info">
       <div class="card-header">
-        <div class="card-title">Transaksi No. 123412341 tanggal 01-Jan-2022</div>
+        <div class="card-title">Transaksi No. {{ $transaksi->nomor }} tanggal {{ date('d-M-Y', strtotime($transaksi->tanggal)) }}</div>
       </div>
       <div class="card-body">
         <dl class="row">
-          <dt class="col-sm-4">Description lists</dt>
-          <dd class="col-sm-8">A description list is perfect for defining terms.</dd>
-          <dt class="col-sm-4">Euismod</dt>
-          <dd class="col-sm-8">Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-          <dd class="col-sm-8 offset-sm-4">Donec id elit non mi porta gravida at eget metus.</dd>
-          <dt class="col-sm-4">Malesuada porta</dt>
-          <dd class="col-sm-8">Etiam porta sem malesuada magna mollis euismod.</dd>
-          <dt class="col-sm-4">Felis euismod semper eget lacinia</dt>
-          <dd class="col-sm-8">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
-            sit amet risus.
-          </dd>
+          <dt class="col-sm-4">Object Perbaikan</dt>
+          <dd class="col-sm-8">{{ $transaksi->aset->nama_aset }}</dd>
+          <dt class="col-sm-4">Alasan</dt>
+          <dd class="col-sm-8">{{ $transaksi->alasan_perbaikan }}</dd>
+          <dt class="col-sm-4">Jenis Perbaikan</dt>
+          <dd class="col-sm-8">{{ $transaksi->jenis_perbaikan }}</dd>
+          <dt class="col-sm-4">Tindakan Perbaikan</dt>
+          <dd class="col-sm-8">{{ $transaksi->tindakan_perbaikan }}</dd>
+          <dt class="col-sm-4">Dibuat oleh</dt>
+          <dd class="col-sm-8">{{ $transaksi->creator->name }}</dd>
+          <dt class="col-sm-4">Total Biaya</dt>
+          <dd class="col-sm-8">Rp. {{ number_format($transaksi->transaksi_details->sum('total'), 0) }}</dd>
         </dl>
       </div>
       <div class="card-footer">
-        <a href="#" class="btn btn-sm btn-success">Approve</a>
-        <a href="#" class="btn btn-sm btn-primary">Deny</a>
+        <div class="row">
+          <form action="{{ route('approvals.approve', $transaksi->id) }}" method="POST">
+            @csrf @method('PUT')
+            <button type="submit" class="btn btn-sm btn-success mr-3">Approve</button>
+          </form>
+          <div class="float-right">
+            <form action="{{ route('approvals.deny', $transaksi->id) }}" method="POST">
+              @csrf @method('DELETE')
+              <button type="submit" class="btn btn-sm btn-danger">Deny</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div> <!-- card -->
+    @endforeach  
 
-    <div class="card card-info">
-      <div class="card-header">
-        <div class="card-title">Transaksi No. 123412341 tanggal 01-Jan-2022</div>
-      </div>
-      <div class="card-body">
-        <dl class="row">
-          <dt class="col-sm-4">Description lists</dt>
-          <dd class="col-sm-8">A description list is perfect for defining terms.</dd>
-          <dt class="col-sm-4">Euismod</dt>
-          <dd class="col-sm-8">Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</dd>
-          <dd class="col-sm-8 offset-sm-4">Donec id elit non mi porta gravida at eget metus.</dd>
-          <dt class="col-sm-4">Malesuada porta</dt>
-          <dd class="col-sm-8">Etiam porta sem malesuada magna mollis euismod.</dd>
-          <dt class="col-sm-4">Felis euismod semper eget lacinia</dt>
-          <dd class="col-sm-8">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo
-            sit amet risus.
-          </dd>
-        </dl>
-      </div>
-      <div class="card-footer">
-        <a href="#" class="btn btn-sm btn-success">Approve</a>
-        <a href="#" class="btn btn-sm btn-primary">Deny</a>
-      </div>
-    </div> <!-- card -->
+    @endif
+    
+
+    
 
   </div>
   <!-- /.col -->

@@ -63,13 +63,23 @@
           </div>
           
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Role</label>
                 <select name="role" class="form-control" style="width: 100%;"> 
                   <option value="USER" {{ $user->role == 'USER' ? 'selected' : '' }}>User</option>
                   <option value="ADMIN" {{ $user->role == 'ADMIN' ? 'selected' : '' }}>Admin</option>
                   <option value="FUELMAN" {{ $user->role == 'FUELMAN' ? 'selected' : '' }}>Fuelman</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Approval Level</label>
+                <select name="approval_level" class="form-control" style="width: 100%;"> 
+                  <option value="0" {{ $user->approval_level == '0' ? 'selected' : '' }}>No</option>
+                  <option value="1" {{ $user->approval_level == '1' ? 'selected' : '' }}>Level 1</option>
+                  <option value="2" {{ $user->approval_level == '2' ? 'selected' : '' }}>Level 2</option>
                 </select>
               </div>
             </div>

@@ -16,10 +16,8 @@ class CreateApprovalsTable extends Migration
         Schema::create('approvals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('transaksi_id')->nullable();
-            $table->unsignedBigInteger('approver1_id')->nullable();
-            $table->dateTime('approve1_time')->nullable();
-            $table->unsignedBigInteger('approver2_id')->nullable();
-            $table->dateTime('approve2_time')->nullable();
+            $table->unsignedBigInteger('approver_id')->nullable();
+            $table->integer('level')->nullable();
             $table->timestamps();
         });
     }

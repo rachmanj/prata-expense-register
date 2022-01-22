@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-dark">
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-dark layout-fixed">
   <div class="container">
     <a href="{{ route('home') }}"class="navbar-brand">
       <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -24,6 +24,11 @@
           <a href="{{ route('kategori.index') }}" class="nav-link">Kategori</a>
         </li>
         @endif
+        @if (auth()->user()->role === 'ADMIN' || auth()->user()->approval_level !== 0)
+        <li class="nav-item">
+          <a href="{{ route('approvals.index') }}" class="nav-link">Approval </a>
+        </li>
+        @endif
         @if (auth()->user()->role === 'FUELMAN' || auth()->user()->role === 'ADMIN')
         <li class="nav-item">
           <a href="{{ route('fuels.index') }}" class="nav-link">Fuel</a>
@@ -44,7 +49,7 @@
     <!-- Right navbar links -->
     <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link">Omanof Sullivan</a>
+        <a href="#" class="nav-link">{{ auth()->user()->name }}</a>
       </li>
       <li class="nav-item">
         <form action="{{ route('logout') }}" method="POST">

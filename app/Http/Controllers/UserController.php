@@ -35,6 +35,7 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->role = $request->role;
+        $user->approval_level = $request->approval_level;
         $user->update();
 
         return redirect()->route('users.index')->with('status', 'Data successfully updated!');
@@ -80,6 +81,15 @@ class UserController extends Controller
                  return Carbon::parse($users->created_at)->diffForHumans();
                 
             })
+            ->editColumn('approval_level', function ($users) {
+                if ($users->approval_level == 1) {
+                    return 'Level 1';
+                } elseif ($users->approval_level == 2){
+                    return 'Level 2';
+                } else {
+                    return 'No';
+                }
+            })
             ->addIndexColumn()
             ->addColumn('action', 'admin.users.action')
             ->rawColumns(['action'])
@@ -106,7 +116,7 @@ class UserController extends Controller
         $users = User::where('active', 1)->get();
 
         return datatables()->of($users)
-        ->editColumn('created_at', function ($users) {
+            ->editColumn('created_at', function ($users) {
                 $date   = Carbon::parse($users->created_at);
                 return $date->diffForHumans();
             })

@@ -30,6 +30,7 @@
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Apprv Level</th>
             <th>Created at</th>
             <th></th>
           </tr>
@@ -73,6 +74,7 @@
         {data: 'username'},
         {data: 'email'},
         {data: 'role'},
+        {data: 'approval_level'},
         {data: 'created_at'},
         {data: 'action', orderable: false, searchable: false},
       ],

@@ -37,10 +37,17 @@ class TransaksiController extends Controller
         ]);
 
         $transaksi = Transaksi::create(array_merge($data_tosave, [
+            'approval_status' => 'process1',
             'created_by'  => Auth()->user()->id
         ]));
 
         $transaksi_id = $transaksi->id;
+
+        // if ($transaksi->aset->approval_stage === 2) {
+        //     $transaksi->update([
+        //         'approval_status' => 'process2'
+        //     ]);
+        // }
 
         return redirect()->route('transaksi.create_detail', $transaksi_id);
     }

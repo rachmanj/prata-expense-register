@@ -32,6 +32,7 @@
             <th>No</th>
             <th>Nama Aset</th>
             <th>Ketegori</th>
+            <th>Apprv Stage</th>
             <th>Total Biaya (Rp.)</th>
             <th></th>
           </tr>
@@ -73,13 +74,14 @@
         {data: 'DT_RowIndex', orderable: false, searchable: false},
         {data: 'nama_aset'},
         {data: 'kategori'},
+        {data: 'approval_stage'},
         {data: 'expense'},
         {data: 'action', orderable: false, searchable: false},
       ],
       fixedHeader: true,
       columnDefs: [
         {
-          "targets": 3,
+          "targets": 4,
           "className": "text-right"
         }
       ],

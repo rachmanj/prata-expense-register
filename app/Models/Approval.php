@@ -15,13 +15,8 @@ class Approval extends Model
         return $this->belongsTo(Transaksi::class);
     }
 
-    public function approver1()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'approver1_id', 'id');
-    }
-
-    public function approver2()
-    {
-        return $this->belongsTo(User::class, 'approver2_id', 'id');
+        return $this->belongsTo(User::class);
     }
 }

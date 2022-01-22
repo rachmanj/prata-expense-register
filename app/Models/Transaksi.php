@@ -25,4 +25,9 @@ class Transaksi extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+
+    public function approvals()
+    {
+        return $this->hasMany(Approval::class);
+    }
 }
