@@ -17,6 +17,11 @@ class TransaksiController extends Controller
         return view('transaksis.index');
     }
 
+    public function index_pending()
+    {
+        return view('transaksis.pendings.index');
+    }
+
     public function create()
     {
         $asets = Aset::orderBy('nama_aset', 'asc')->get();
@@ -135,7 +140,10 @@ class TransaksiController extends Controller
 
     public function transaksi_index_data()
     {
-        $transaksis = Transaksi::with(['aset', 'transaksi_details'])->orderBy('tanggal', 'desc')->get();
+        $transaksis = Transaksi::with(['aset', 'transaksi_details'])
+                        ->where('approval_status', 'approved')
+                        ->orderBy('tanggal', 'desc')
+                        ->get();
 
         return datatables()->of($transaksis)
             ->addColumn('aset', function ($transaksis) {
@@ -149,6 +157,29 @@ class TransaksiController extends Controller
             })
             ->addIndexColumn()
             ->addColumn('action', 'transaksis.action')
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function transaksi_index_pending_data()
+    {
+        $transaksis = Transaksi::with(['aset', 'transaksi_details'])
+                        ->where('approval_status', '<>', 'approved')
+                        ->orderBy('tanggal', 'desc')
+                        ->get();
+
+        return datatables()->of($transaksis)
+            ->addColumn('aset', function ($transaksis) {
+                return $transaksis->aset->nama_aset;
+            })
+            ->addColumn('total', function ($transaksis) {
+                return number_format($transaksis->transaksi_details->sum('total'), 0);
+            })
+            ->editColumn('tanggal', function($transaksis) {
+                return date('d-M-Y', strtotime($transaksis->tanggal));
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'transaksis.pendings.action')
             ->rawColumns(['action'])
             ->toJson();
     }

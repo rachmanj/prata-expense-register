@@ -63,10 +63,12 @@ Route::middleware('auth')->prefix('asets')->name('aset.')->group(function () {
 Route::middleware('auth')->prefix('transaksis')->name('transaksi.')->group(function () {
     Route::get('/export_excel', [TransaksiController::class, 'transaksi_export_excel'])->name('export_excel');
     Route::get('/data', [TransaksiController::class, 'transaksi_index_data'])->name('index.data');
+    Route::get('/pending/data', [TransaksiController::class, 'transaksi_index_pending_data'])->name('index_pending.data');
     Route::get('/{transaksi_id}/transaksi_detail/data', [TransaksiController::class, 'transaksi_detail_create_data'])->name('transaksi_detail_create_data');
     Route::get('/{transaksi_id}/show/data', [TransaksiController::class, 'transaksi_detail_show_data'])->name('transaksi_detail_show_data');
 
     Route::get('/', [TransaksiController::class, 'index'])->name('index');
+    Route::get('/pending', [TransaksiController::class, 'index_pending'])->name('index_pending');
     Route::get('/create', [TransaksiController::class, 'create'])->name('create');
     Route::post('/', [TransaksiController::class, 'store'])->name('store');
     Route::get('/{id}', [TransaksiController::class, 'edit'])->name('edit');

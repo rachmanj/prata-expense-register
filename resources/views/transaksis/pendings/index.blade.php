@@ -1,7 +1,7 @@
 @extends('templates.main')
 
 @section('title_page')
-    Transaksi <small>(approved)</small>
+    Transaksi <small>(pending)</small>
 @endsection
 
 @section('breadcrumb_title')
@@ -29,10 +29,10 @@
         </div>
         @endif
 
-        {{-- <a href="{{ route('transaksi.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Transaksi</a> --}}
-        <a href="{{ route('transaksi.export_excel') }}" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Export Excel</a>
-        <a href="{{ route('transaksi.index_pending') }}" class="float-right"> Pendings</a>
-        <a href="#" class="float-right mr-4"> <b>Approveds</b></a>
+        <a href="{{ route('transaksi.create') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Tambah Transaksi</a>
+        {{-- <a href="{{ route('transaksi.export_excel') }}" class="btn btn-sm btn-success"><i class="fas fa-file-export"></i> Export Excel</a> --}}
+        <a href="#" class="float-right"> <b>Pendings</b></a>
+        <a href="{{ route('transaksi.index') }}" class="float-right mr-4"> Approveds</a>
       </div>
       <!-- /.card-header -->
       <div class="card-body">
@@ -45,6 +45,7 @@
             <th>Object</th>
             <th>Jenis Perbaikan</th>
             <th>Total</th>
+            <th>Status</th>
             <th></th>
           </tr>
           </thead>
@@ -80,7 +81,7 @@
     $("#example1").DataTable({
       processing: true,
       serverSide: true,
-      ajax: '{{ route('transaksi.index.data') }}',
+      ajax: '{{ route('transaksi.index_pending.data') }}',
       columns: [
         {data: 'DT_RowIndex', orderable: false, searchable: false},
         {data: 'nomor'},
@@ -88,6 +89,7 @@
         {data: 'aset'},
         {data: 'jenis_perbaikan'},
         {data: 'total'},
+        {data: 'approval_status'},
         {data: 'action', orderable: false, searchable: false},
       ],
       fixedHeader: true,
