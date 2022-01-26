@@ -65,7 +65,7 @@
           </form>
           <div class="float-right">
             <form action="{{ route('approvals.deny', $transaksi->id) }}" method="POST">
-              @csrf @method('DELETE')
+              @csrf @method('PUT')
               <button type="submit" class="btn btn-sm btn-danger">Deny</button>
             </form>
           </div>

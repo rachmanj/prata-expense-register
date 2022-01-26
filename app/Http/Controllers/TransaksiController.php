@@ -130,7 +130,9 @@ class TransaksiController extends Controller
 
     public function show($id)
     {
-        $transaksi = Transaksi::without('transaksi_details')->find($id);
+        $transaksi = Transaksi::without('transaksi_details')
+                    ->with('approvals.user')
+                    ->find($id);
 
         // return $transaksi;
         return view('transaksis.show', compact('transaksi'));
@@ -177,6 +179,11 @@ class TransaksiController extends Controller
             })
             ->editColumn('tanggal', function($transaksis) {
                 return date('d-M-Y', strtotime($transaksis->tanggal));
+            })
+            ->editColumn('approval_status', function ($transaksis) {
+                if($transaksis->approval_status === 'process1' || $transaksis->approval_status === 'process2') {
+                    return 'wait approve';
+                }
             })
             ->addIndexColumn()
             ->addColumn('action', 'transaksis.pendings.action')

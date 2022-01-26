@@ -46,11 +46,16 @@
               <dt class="col-sm-4">Pelaksana</dt>
               <dd class="col-sm-8">: {{ $transaksi->worker }}</dd>
               <dt class="col-sm-4">Diminta oleh</dt>
-              <dd class="col-sm-8">: {{ $transaksi->requestor }}</dd>
-              <dt class="col-sm-4">Disetujui oleh</dt>
-              <dd class="col-sm-8">: {{ $transaksi->approver }}</dd>
-              <dt class="col-sm-4">Dibuat oleh</dt>
               <dd class="col-sm-8">: {{ $transaksi->creator->name }}</dd>
+              @if ($transaksi->approvals)
+                  @foreach ($transaksi->approvals as $item)
+                    <dt class="col-sm-4">Approver {{ $loop->iteration }} </dt>
+                    <dd class="col-sm-8">: {{ $item->user->name }}</dd>
+                  @endforeach
+              @else
+                <dt class="col-sm-4">Disetujui oleh</dt>
+                <dd class="col-sm-8">: - </dd>
+              @endif
               <dt class="col-sm-4">Diinput tgl</dt>
               <dd class="col-sm-8">: {{ date('d-M-Y', strtotime($transaksi->created_at)) }}</dd>
             </dl>

@@ -9,6 +9,7 @@ class Approval extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $with = ['user'];
 
     public function transaksi()
     {
@@ -17,6 +18,6 @@ class Approval extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'approver_id', 'id');
     }
 }

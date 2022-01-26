@@ -11,7 +11,10 @@ class ApprovalController extends Controller
     public function index()
     {
         if(auth()->user()->role === 'ADMIN') {
-            $transaksis = Transaksi::with(['aset', 'transaksi_details'])->where('approval_status', '<>', 'approved')->get();
+            $transaksis = Transaksi::with(['aset', 'transaksi_details'])
+                        ->where('approval_status', '<>', 'approved')
+                        ->where('approval_status', '<>', 'denied')
+                        ->get();
             // return $transaksis;
             return view('approvals.index', compact('transaksis'));
         }
@@ -51,6 +54,17 @@ class ApprovalController extends Controller
             'level' => auth()->user()->approval_level,
         ]);
 
-        return redirect()->route('approvals.index');
+        return redirect()->route('approvals.index')->with('success', 'Transaksi successfully approved!');
+    }
+
+    public function deny($transaksi_id)
+    {
+        $transaksi = Transaksi::find($transaksi_id);
+
+        $transaksi->update([
+            'approval_status' => 'deny'
+        ]);
+
+        return redirect()->route('approvals.index')->with('suucess', 'Transaksi successfully deinied!');
     }
 }
