@@ -59,15 +59,17 @@
       </div>
       <div class="card-footer">
         <div class="row">
-          <form action="{{ route('approvals.approve', $transaksi->id) }}" method="POST">
-            @csrf @method('PUT')
-            <button type="submit" class="btn btn-sm btn-success mr-3">Approve</button>
-          </form>
+          @if (auth()->user()->approval_level === 1 || auth()->user()->approval_level === 2)
+            <form action="{{ route('approvals.approve', $transaksi->id) }}" method="POST">
+              @csrf @method('PUT')
+              <button type="submit" class="btn btn-sm btn-success mr-3">Approve</button>
+            </form>
           <div class="float-right">
             <form action="{{ route('approvals.deny', $transaksi->id) }}" method="POST">
               @csrf @method('PUT')
-              <button type="submit" class="btn btn-sm btn-danger">Deny</button>
-            </form>
+            <button type="submit" class="btn btn-sm btn-danger">Deny</button>
+          </form>
+          @endif
           </div>
         </div>
       </div>

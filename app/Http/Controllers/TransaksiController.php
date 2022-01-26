@@ -184,6 +184,7 @@ class TransaksiController extends Controller
                 if($transaksis->approval_status === 'process1' || $transaksis->approval_status === 'process2') {
                     return 'wait approve';
                 }
+                return 'denied';
             })
             ->addIndexColumn()
             ->addColumn('action', 'transaksis.pendings.action')

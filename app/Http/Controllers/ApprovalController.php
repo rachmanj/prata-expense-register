@@ -10,7 +10,7 @@ class ApprovalController extends Controller
 {
     public function index()
     {
-        if(auth()->user()->role === 'ADMIN') {
+        if(auth()->user()->role === 'ADMIN' && auth()->user()->approval_level === 0) {
             $transaksis = Transaksi::with(['aset', 'transaksi_details'])
                         ->where('approval_status', '<>', 'approved')
                         ->where('approval_status', '<>', 'denied')
@@ -19,14 +19,15 @@ class ApprovalController extends Controller
             return view('approvals.index', compact('transaksis'));
         }
 
-        if(auth()->user()->role !== 'ADMIN' && auth()->user()->approval_level !== null) {
-            if (auth()->user()->approval_level === 1) {
-                $transaksis = Transaksi::with(['aset', 'transaksi_details'])->where('approval_status', 'process1')->get();
-            } elseif (auth()->user()->approval_level === 2) {
-                $transaksis = Transaksi::with(['aset', 'transaksi_details'])->where('approval_status', 'process2')->get();
-            }
-            return view('approvals.index', compact('transaksis'));
+        
+        if (auth()->user()->approval_level === 1) {
+            $transaksis = Transaksi::with(['aset', 'transaksi_details'])->where('approval_status', 'process1')->get();
+        } 
+        if (auth()->user()->approval_level === 2) {
+            $transaksis = Transaksi::with(['aset', 'transaksi_details'])->where('approval_status', 'process2')->get();
         }
+        return view('approvals.index', compact('transaksis'));
+        
     }
 
     public function approve($transaksi_id)
@@ -37,7 +38,7 @@ class ApprovalController extends Controller
         if ($transaksi->aset->approval_stage === 1) {
             $approval_status = 'approved';
         } elseif ($transaksi->aset->approval_stage === 2) {
-            if ($approval_count > 0) {
+            if ($approval_count) {
                 $approval_status = 'approved';
             } else {
                 $approval_status = 'process2';
